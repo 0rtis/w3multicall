@@ -33,8 +33,15 @@ class W3:
 
 
 class W3Pool:
+    """
+    Pool of W3 instances
+    """
 
     def __init__(self, w3s: List[W3], logger: Union[logging.Logger, None] = None):
+        """
+        :param w3s: list of W3 instances
+        :param logger: (optional) logging.Logger
+        """
         self.w3s = w3s
         self.logger = logger
 
@@ -43,6 +50,11 @@ class W3Pool:
         return self
 
     def use(self, block: bool = True) -> Union[Web3, None]:
+        """
+        Return a Web3 instance that will not hit the rate limit upon calling (may block until the rate limit windows has passed)
+        :param block: (default: true) block until a Web3 instance is available
+        :return: Web3 instance
+        """
         next_available: Union[W3, None] = None
 
         for i in range(len(self.w3s)):
@@ -70,6 +82,9 @@ class W3Pool:
 
 
 class W3MulticallExecutor:
+    """
+    Multi thread W3Multicall processor
+    """
 
     class Task:
         def __init__(self):
@@ -100,7 +115,16 @@ class W3MulticallExecutor:
         def get(self):
             return self.task.get(self.call_key)
 
-    def __init__(self, w3_pool: W3Pool, processes: int, multicall_contract_address = '0xcA11bde05977b3631167028862bE2a173976CA11', batch_max_size: int = 20, tick_duration: float = 0.05, logger: Union[logging.Logger, None] = None):
+    def __init__(self, w3_pool: W3Pool, processes: int, multicall_contract_address='0xcA11bde05977b3631167028862bE2a173976CA11', batch_max_size: int = 20, tick_duration: float = 0.05, logger: Union[logging.Logger, None] = None):
+        """
+        :param w3_pool: W3Pool
+        :param processes: number of thread to process W3Multicall
+        :param multicall_contract_address: (optional) address of the multicall3.sol contract
+        :param batch_max_size: (default 20) max call per W3Multicall
+        :param tick_duration: (default 0.05) update delay
+        :param logger: (optional) logging.Logger
+        """
+
         self.w3_pool = w3_pool
         self.processes = processes
         self.multicall_contract_address = multicall_contract_address
@@ -129,7 +153,7 @@ class W3MulticallExecutor:
                     self.logger.debug("Triggering task {}".format(self.pending_task))
                 task = self.pending_task
                 self.pending_task = None
-                self.thread_pool.apply_async(func=self.__execute, args=(task, ))
+                self.thread_pool.apply_async(func=self.__execute, args=(task,))
 
     def __execute(self, task: 'W3MulticallExecutor.Task'):
         if self.logger is not None:
@@ -155,6 +179,11 @@ class W3MulticallExecutor:
             self.logger.debug("Task {} completed".format(task))
 
     def submit(self, call: W3Multicall.Call) -> Future:
+        """
+        Submit a W3Multicall.Call for execution
+        :param call: call to execute
+        :return: Future instance. Use Future.get() to wait until the call is executed
+        """
         with self.lock:
             if self.pending_task is None:
                 self.pending_task = W3MulticallExecutor.Task()

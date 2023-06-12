@@ -103,6 +103,10 @@ def _unpack_aggregate_outputs(outputs: Any) -> Tuple[Tuple[Union[None, bool], by
 
 
 class W3Multicall:
+    """
+    Interface for multicall3.sol contract
+    """
+
     MULTICALL_METHOD_NAME, MULTICALL_INPUT_TYPES, MULTICALL_OUTPUT_TYPES = _parse_signature("aggregate((address,bytes)[])(uint256,bytes[])")
     MULTICALL_SELECTOR = eth_utils.function_signature_to_4byte_selector(MULTICALL_METHOD_NAME)
 
@@ -120,6 +124,11 @@ class W3Multicall:
             self.data = _encode_data(self.selector, self.input_types, self.args)
 
     def __init__(self, w3, address='0xcA11bde05977b3631167028862bE2a173976CA11', calls: List['W3Multicall.Call'] = None):
+        """
+        :param w3: Web3 instance
+        :param address: (optional) address of the multicall3.sol contract
+        :param calls: (optional) list of W3Multicall.Call to perform
+        """
         self.w3 = w3
         self.address = address
         self.calls: List['W3Multicall.Call'] = [] if calls is None else calls.copy()

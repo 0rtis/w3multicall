@@ -2,7 +2,7 @@
 [![Pypi_repo](https://img.shields.io/pypi/v/w3multicall?style=flat-square)](https://pypi.org/project/w3multicall/)
 [![GitHub license](https://img.shields.io/github/license/0rtis/w3multicall.svg?style=flat-square)](https://github.com/0rtis/w3multicall/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/0rtis?style=flat-square)](https://github.com/0rtis)
-[![Follow @twitter handle](https://img.shields.io/twitter/follow/Knockturn_io.svg?style=flat-square)](https://twitter.com/intent/follow?screen_name=ortis95)
+[![Follow @twitter handle](https://img.shields.io/twitter/follow/Knockturn_io.svg?style=flat-square)](https://twitter.com/intent/follow?screen_name=Knockturn_io)
 
 
 Install with `pip install w3multicall`
@@ -23,7 +23,7 @@ This implementation fixes that.
 
 # Multicall Smart Contract
 [Multicall](https://github.com/mds1/multicall) smart contract are deployed on numerous chains and can help reduce the strain
-put on RPC by order of magnitude by *batching* multiple requests into one.
+put on RPC by order of magnitude by *batching* multiple requests into a single one.
 
 # Simple Multicall
 
