@@ -1,0 +1,1 @@
+ rm -rf dist src/w3multicall.egg-info && python3 -m build && python3 -m twine upload --repository pypi dist/*
