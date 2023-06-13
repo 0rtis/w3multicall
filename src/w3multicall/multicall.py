@@ -112,6 +112,11 @@ class W3Multicall:
 
     class Call:
         def __init__(self, address: str, signature: str, args=None):
+            """
+            :param address: address of the contract to call
+            :param signature: method signature to call (no space. Example: 'balanceOf(address)(uint256)')
+            :param args: arguments of the contract method to call (use python tuple for solidity struct, python list for solidity arrays and python int for solidity uint/int)
+            """
             self.address = address
             self.signature = signature.replace(" ", "")
 

@@ -12,14 +12,15 @@ from ..multicall import W3Multicall
 
 class W3:
 
-    def __init__(self, w3: Web3, delay_between_call: float):
+    def __init__(self, w3: Web3, delay_between_call: float, label: Union[str, None] = None):
         self.w3 = w3
         self.delay_between_call = delay_between_call
         self.limit_rate_per_seconds = 1 / self.delay_between_call
         self.last_call_at = 0
+        self.label = str(self) if label is None else label
 
     def __repr__(self):
-        return '{} {:.2f}/s'.format(self.w3, self.limit_rate_per_seconds)
+        return '{} {:.2f}/s'.format(self.label, self.limit_rate_per_seconds)
 
     def use(self) -> Web3:
         self.last_call_at = time.time()

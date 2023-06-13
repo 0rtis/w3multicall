@@ -21,11 +21,13 @@ However, [multicall.py](https://github.com/banteg/multicall.py) is built on [asy
 
 This implementation fixes that.
 
-# Multicall Smart Contract
+# W3Multicall
+
+## Multicall Smart Contract
 [Multicall](https://github.com/mds1/multicall) smart contract are deployed on numerous chains and can help reduce the strain
 put on RPC by order of magnitude by *batching* multiple requests into a single one.
 
-# Simple Multicall
+## Simple Multicall
 
 ```
 from web3 import Web3
@@ -49,7 +51,7 @@ print("Vitalik holds {:.2f} USDC".format(results[0]/10**6))
 
 [See full example](/examples/simple_multicall.py)
 
-# Multithread Multicall
+## Multithread Multicall
 
 ```
 w3_pool = W3Pool([
