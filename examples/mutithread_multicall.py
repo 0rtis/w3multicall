@@ -2,7 +2,8 @@ import sys
 import logging
 from web3 import Web3
 from w3multicall.multicall import W3Multicall
-from w3multicall.threading.w3multicall_executor import W3, W3Pool, W3MulticallExecutor
+from w3multicall.web3.web3 import W3, W3Pool
+from w3multicall.threading.w3multicall_executor import W3MulticallExecutor
 
 if __name__ == "__main__":
     log_format = '[%(levelname)s] %(asctime)s|%(name)s|%(threadName)s|%(filename)s:%(lineno)d: %(message)s'
@@ -17,9 +18,9 @@ if __name__ == "__main__":
     logging.getLogger("web3.RequestManager").disabled = True
 
     w3_pool = W3Pool([
-        W3(Web3(Web3.HTTPProvider('https://eth-rpc.gateway.pokt.network')), 5),
-        W3(Web3(Web3.HTTPProvider('https://ethereum.publicnode.com')), 5),
-        W3(Web3(Web3.HTTPProvider('https://rpc.flashbots.net/')), 5)
+        W3(Web3(Web3.HTTPProvider('https://eth-rpc.gateway.pokt.network')), delay_between_call=5),
+        W3(Web3(Web3.HTTPProvider('https://ethereum.publicnode.com')), delay_between_call=5),
+        W3(Web3(Web3.HTTPProvider('https://rpc.flashbots.net/')), delay_between_call=5)
     ], logger)
 
     executor = W3MulticallExecutor(w3_pool, len(w3_pool.w3s), logger=logger)

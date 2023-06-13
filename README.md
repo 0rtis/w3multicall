@@ -23,6 +23,9 @@ This implementation fixes that.
 
 # W3Multicall
 
+## Build and install locally
+From the root folder `web3multicall` do `pip install .` to build and install the package in the current python environment 
+
 ## Multicall Smart Contract
 [Multicall](https://github.com/mds1/multicall) smart contract are deployed on numerous chains and can help reduce the strain
 put on RPC by order of magnitude by *batching* multiple requests into a single one.
