@@ -46,6 +46,29 @@ class W3Pool:
         self.w3s.append(w3)
         return self
 
+    def use_specific(self, w3_target: Union[W3, str], block: bool = True):
+        while True:
+            target = None
+            with self.lock:
+                for i in range(len(self.w3s)):
+                    if self.w3s[i] == w3_target or self.w3s[i].label == w3_target:
+                        tau = self.w3s[i].usable_in()
+                        if tau <= 0:
+                            if self.logger is not None:
+                                self.logger.debug("Using {}".format(self.w3s[i]))
+                            return self.w3s[i].use()
+                        target = self.w3s[i]
+                        break
+
+            if target is None:
+                raise Exception("Target w3 '{}' not found".format(w3_target))
+            if block:
+                sleep = target.usable_in()
+                if sleep > 0:
+                    if self.logger is not None:
+                        self.logger.warning("Waiting {}s for {}".format(sleep, target))
+                    time.sleep(sleep)
+
     def use(self, block: bool = True) -> Union[Web3, None]:
         """
         Return a Web3 instance that will not hit the rate limit upon calling (may block until the rate limit windows has passed)

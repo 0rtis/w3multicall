@@ -128,13 +128,13 @@ class W3Multicall:
             self.selector = eth_utils.function_signature_to_4byte_selector(self.name)
             self.data = _encode_data(self.selector, self.input_types, self.args)
 
-    def __init__(self, w3, address='0xcA11bde05977b3631167028862bE2a173976CA11', calls: List['W3Multicall.Call'] = None):
+    def __init__(self, web3, address='0xcA11bde05977b3631167028862bE2a173976CA11', calls: List['W3Multicall.Call'] = None):
         """
-        :param w3: Web3 instance
+        :param web3: Web3 instance
         :param address: (optional) address of the multicall3.sol contract
         :param calls: (optional) list of W3Multicall.Call to perform
         """
-        self.w3 = w3
+        self.web3 = web3
         self.address = address
         self.calls: List['W3Multicall.Call'] = [] if calls is None else calls.copy()
         self.require_success = True
@@ -149,7 +149,7 @@ class W3Multicall:
             'to': self.address,
             'data': data
         }
-        rpc_response = self.w3.eth.call(eth_call_params)
+        rpc_response = self.web3.eth.call(eth_call_params)
         aggregated = _decode_output(rpc_response, W3Multicall.MULTICALL_OUTPUT_TYPES)
         unpacked = _unpack_aggregate_outputs(aggregated[1])
         outputs = []
