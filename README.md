@@ -24,7 +24,7 @@ This implementation fixes that.
 # W3Multicall
 
 ## Build and install locally
-From the root folder `web3multicall` do `pip install .` to build and install the package in the current python environment 
+From the root folder `w3multicall` do `pip install .` to build and install the package in the current python environment 
 
 ## Multicall Smart Contract
 [Multicall](https://github.com/mds1/multicall) smart contract are deployed on numerous chains and can help reduce the strain

@@ -6,7 +6,7 @@ import time
 import datetime
 
 from ..multicall import W3Multicall
-from ..web3.web3 import W3Pool
+from ..w3.w3 import W3Pool
 
 
 class W3MulticallExecutor:

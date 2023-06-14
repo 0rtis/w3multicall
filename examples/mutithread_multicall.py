@@ -2,7 +2,7 @@ import sys
 import logging
 from web3 import Web3
 from w3multicall.multicall import W3Multicall
-from w3multicall.web3.web3 import W3, W3Pool
+from w3multicall.w3.w3 import W3, W3Pool
 from w3multicall.threading.w3multicall_executor import W3MulticallExecutor
 
 if __name__ == "__main__":
